@@ -4,3 +4,6 @@
 
 # Logs
 *.log 
+
+# Ignorar achivos de construccion de Maven
+target/
