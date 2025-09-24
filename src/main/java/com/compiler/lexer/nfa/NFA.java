@@ -6,7 +6,6 @@ package com.compiler.lexer.nfa;
  * An NFA is used in lexical analysis to model regular expressions and pattern matching.
  * This class encapsulates the start and end states of the automaton.
  */
-
 public class NFA {
     /**
      * The initial (start) state of the NFA.
@@ -24,8 +23,8 @@ public class NFA {
      * @param end The final (accepting) state.
      */
     public NFA(State start, State end) {
-        // TODO: Implement constructor
-        throw new UnsupportedOperationException("Not implemented");
+        this.startState = start;
+        this.endState = end;
     }
 
     /**
@@ -33,7 +32,6 @@ public class NFA {
      * @return the start state
      */
     public State getStartState() {
-    // TODO: Implement getStartState
-    throw new UnsupportedOperationException("Not implemented");
+        return this.startState;
     }
 }

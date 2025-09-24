@@ -22,11 +22,12 @@ public class Transition {
 
     /**
      * Constructs a new transition with the given symbol and destination state.
+     *
      * @param symbol The symbol for the transition (null for epsilon).
      * @param toState The destination state.
      */
     public Transition(Character symbol, State toState) {
-    // TODO: Implement constructor
-    throw new UnsupportedOperationException("Not implemented");
+        this.symbol = symbol;
+        this.toState = toState;
     }
 }

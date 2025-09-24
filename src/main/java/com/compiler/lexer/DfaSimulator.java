@@ -1,6 +1,7 @@
 package com.compiler.lexer;
 
 import com.compiler.lexer.dfa.DFA;
+import com.compiler.lexer.dfa.DfaState;
 
 /**
  * DfaSimulator
@@ -18,35 +19,62 @@ import com.compiler.lexer.dfa.DFA;
  *     boolean accepted = simulator.simulate(dfa, "inputString");
  * </pre>
  */
-/**
- * Simulator for running input strings on a DFA.
- */
 public class DfaSimulator {
+
     /**
      * Default constructor for DfaSimulator.
      */
-        public DfaSimulator() {
-            // TODO: Implement constructor if needed
-        }
+    public DfaSimulator() {
+        // No initialization needed
+    }
+
     /**
      * Simulates the DFA on the given input string.
      * Starts at the DFA's start state and processes each character, following transitions.
      * If a transition does not exist for a character, the input is rejected.
      *
-     * @param dfa The DFA to simulate.
+     * @param dfa   The DFA to simulate.
      * @param input The input string to test.
      * @return True if the input is accepted by the DFA, false otherwise.
      */
     public boolean simulate(DFA dfa, String input) {
-       // TODO: Implement simulate
-       /*
-        Pseudocode:
-        1. Set currentState to DFA start state
-        2. For each character in input:
-            - Get next state using transition for character
-            - If no transition exists, return false
-        3. After processing all characters, return true if currentState is final
-       */
-       throw new UnsupportedOperationException("Not implemented");
+        DfaState currentState = dfa.startState;
+
+        for (int i = 0; i < input.length(); i++) {
+            char symbol = input.charAt(i);
+            DfaState nextState = currentState.getTransition(symbol);
+            if (nextState == null) {
+                return false;
+            }
+            currentState = nextState;
+        }
+
+        return currentState.isFinal();
+    }
+
+    /**
+     * Simulates the DFA and returns the token type if accepted.
+     *
+     * @param dfa   The DFA to simulate.
+     * @param input The input string.
+     * @return The token type if the input is accepted, null otherwise.
+     */
+    public Token recognizeToken(DFA dfa, String input) {
+        DfaState currentState = dfa.startState;
+
+        for (int i = 0; i < input.length(); i++) {
+            char symbol = input.charAt(i);
+            DfaState nextState = currentState.getTransition(symbol);
+            if (nextState == null) {
+                return null; // Invalid transition → reject
+            }
+            currentState = nextState;
+        }
+
+        if (currentState.isFinal()) {
+            return currentState.getToken();
+        } else {
+            return null; // not a valid token
+        }
     }
 }
